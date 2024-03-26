@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import pageObjects.LandingPage;
+import pageObjects.OffersPage;
 import utils.TestContextSetup;
 
 import java.util.Iterator;
@@ -23,14 +25,16 @@ public class OfferPageStepDefinition {
     public void user_searched_for_same_shortname_in_offers_page(String shortName) throws InterruptedException {
         // Write code here that turns the phrase above into concrete actions
         switchToOfferPage();
-        testContextSetup.driver.findElement(By.xpath("//input[@type = 'search']")).sendKeys(shortName);
+        OffersPage offersPage = new OffersPage(testContextSetup.driver);
+        offersPage.SearchItem(shortName);
         Thread.sleep(2000);
-        offerPageProductName= testContextSetup.driver.findElement(By.cssSelector("tr td:nth-child(1)")).getText();
+        offerPageProductName= offersPage.getProductName();
 
     }
     public void switchToOfferPage(){
 //        if(testContextSetup.driver.getCurrentUrl().equalsIgnoreCase(""));
-        testContextSetup.driver.findElement(By.linkText("Top Deals")).click();
+        LandingPage landingPage = new LandingPage(testContextSetup.driver);
+        landingPage.selectTopDealsPage();
         Set<String> s1 = testContextSetup.driver.getWindowHandles();
         Iterator<String> i1=s1.iterator();
         String parentWindow = i1.next();
