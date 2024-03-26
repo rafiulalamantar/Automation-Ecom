@@ -29,6 +29,7 @@ public class OfferPageStepDefinition {
 
     }
     public void switchToOfferPage(){
+//        if(testContextSetup.driver.getCurrentUrl().equalsIgnoreCase(""));
         testContextSetup.driver.findElement(By.linkText("Top Deals")).click();
         Set<String> s1 = testContextSetup.driver.getWindowHandles();
         Iterator<String> i1=s1.iterator();
