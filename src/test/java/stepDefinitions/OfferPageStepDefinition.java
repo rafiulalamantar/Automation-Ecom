@@ -22,16 +22,19 @@ public class OfferPageStepDefinition {
     @Then("User searched for {string} shortname in offers page")
     public void user_searched_for_same_shortname_in_offers_page(String shortName) throws InterruptedException {
         // Write code here that turns the phrase above into concrete actions
+        switchToOfferPage();
+        testContextSetup.driver.findElement(By.xpath("//input[@type = 'search']")).sendKeys(shortName);
+        Thread.sleep(2000);
+        offerPageProductName= testContextSetup.driver.findElement(By.cssSelector("tr td:nth-child(1)")).getText();
+
+    }
+    public void switchToOfferPage(){
         testContextSetup.driver.findElement(By.linkText("Top Deals")).click();
         Set<String> s1 = testContextSetup.driver.getWindowHandles();
         Iterator<String> i1=s1.iterator();
         String parentWindow = i1.next();
         String childWindow = i1.next();
         testContextSetup.driver.switchTo().window(childWindow);
-        testContextSetup.driver.findElement(By.xpath("//input[@type = 'search']")).sendKeys(shortName);
-        Thread.sleep(2000);
-        offerPageProductName= testContextSetup.driver.findElement(By.cssSelector("tr td:nth-child(1)")).getText();
-
     }
     @Then("validate product name in offer page matches with Landing page")
     public void validate_product_name_in_offer_page_matches_with_landing_page(){
