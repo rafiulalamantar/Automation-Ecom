@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import pageObjects.LandingPage;
 import pageObjects.OffersPage;
+import pageObjects.PageObjectManager;
 import utils.TestContextSetup;
 
 import java.util.Iterator;
@@ -17,6 +18,7 @@ import java.util.Set;
 public class OfferPageStepDefinition {
     public String offerPageProductName;
     TestContextSetup testContextSetup;
+    PageObjectManager pageObjectManager;
     public OfferPageStepDefinition(TestContextSetup testContextSetup){
         this.testContextSetup= testContextSetup;
     }
@@ -33,13 +35,9 @@ public class OfferPageStepDefinition {
     }
     public void switchToOfferPage(){
 //        if(testContextSetup.driver.getCurrentUrl().equalsIgnoreCase(""));
-        LandingPage landingPage = new LandingPage(testContextSetup.driver);
+        LandingPage landingPage=testContextSetup.pageObjectManager.getLandingPage();
         landingPage.selectTopDealsPage();
-        Set<String> s1 = testContextSetup.driver.getWindowHandles();
-        Iterator<String> i1=s1.iterator();
-        String parentWindow = i1.next();
-        String childWindow = i1.next();
-        testContextSetup.driver.switchTo().window(childWindow);
+        testContextSetup.genericUtils.switchWindowToChild();
     }
     @Then("validate product name in offer page matches with Landing page")
     public void validate_product_name_in_offer_page_matches_with_landing_page(){
