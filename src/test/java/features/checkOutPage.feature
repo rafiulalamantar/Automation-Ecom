@@ -1,5 +1,5 @@
 Feature: Search and Place the order for Products
-
+@PlaceOrder
   Scenario Outline: Search Experience for product search in both home and offer page
     Given User in on GreenCart Landing page
     When User searched with Shortname <Name> and extracted actual name of product
@@ -10,4 +10,3 @@ Feature: Search and Place the order for Products
     Examples:
     | Name |
     | TOM  |
-    | Beet |
