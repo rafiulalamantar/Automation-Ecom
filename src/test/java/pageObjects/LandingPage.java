@@ -14,7 +14,6 @@ public class LandingPage {
     By topDeals = By.linkText("Top Deals");
 
     public void SearchItem(String name){
-
         driver.findElement(search).sendKeys(name);
     }
     public void getSearchText(){
@@ -25,5 +24,8 @@ public class LandingPage {
     }
     public void selectTopDealsPage(){
         driver.findElement(topDeals).click();
+    }
+    public String getTitleLandingPage(){
+        return driver.getTitle();
     }
 }

@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -19,23 +20,29 @@ public class LandingPageStepDefinition {
     public String offerPageProductName;
     public String landingPageProductName;
     TestContextSetup testContextSetup;
+    public LandingPage landingPage;
     public LandingPageStepDefinition(TestContextSetup testContextSetup){
         this.testContextSetup= testContextSetup;
+        this.landingPage=testContextSetup.pageObjectManager.getLandingPage();
     }
 
 
     @Given("User in on GreenCart Landing page")
     public void user_in_on_green_cart_landing_page() {
 //        testContextSetup.pageObjectManager.getLandingPage();
+        Assert.assertTrue(landingPage.getTitleLandingPage().contains("GreenKart"));
     }
     @When("^User searched with Shortname (.+) and extracted actual name of product$")
     public void user_searched_with_shortname_and_extracted_actual_name_of_product(String shortName) throws InterruptedException {
 
-        LandingPage landingPage = testContextSetup.pageObjectManager.getLandingPage();
         landingPage.SearchItem(shortName);
         Thread.sleep(2000);
         testContextSetup.landingPageProductName=landingPage.getProductName().split("-")[0].trim();
         System.out.println(testContextSetup.landingPageProductName);
 
+    }
+    @And("Added {string} items of the selected product to cart")
+    public void addedItemsOfTheSelectedProductToCart(String quantity) {
+        
     }
 }
