@@ -17,9 +17,14 @@ public class TestBase {
         Properties properties = new Properties();
         properties.load(fileInputStream);
         String url = properties.getProperty("QAUrl");
+        String browser_properties = properties.getProperty("browser");
+        String browser_maven =System.getProperty("browser");
+
+        String browser = browser_maven!=null ? browser_maven : browser_properties;
+
 
         if(driver==null){
-            if (properties.getProperty("browser").equalsIgnoreCase("chrome")){
+            if (browser.equalsIgnoreCase("chrome")){
                 driver = new ChromeDriver();
             }
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
